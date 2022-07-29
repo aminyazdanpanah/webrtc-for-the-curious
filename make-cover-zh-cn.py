@@ -5,14 +5,14 @@ import subprocess
 def contributions(folder = "content/"):
     proc = subprocess.Popen(['git','log', '--shortstat', '--pretty="%aN"', folder],stdout=subprocess.PIPE)
 
-    contributions=dict()
+    contributions = {}
 
     author=""
     for i, linecrlf in enumerate(proc.stdout):
         line = linecrlf.rstrip()
         if i % 3 == 0:
             author=line.decode("utf-8").replace('"', '')
-            if not author in contributions:
+            if author not in contributions:
                 contributions[author] = 0
         if i % 3 == 2:
             tokens = line.decode("utf-8").split(" ")
